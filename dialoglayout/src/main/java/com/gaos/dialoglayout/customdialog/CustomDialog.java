@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -13,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.gaos.dialoglayout.DialogFlags;
 import com.gaos.dialoglayout.R;
 
 /**
@@ -27,9 +29,11 @@ public class CustomDialog extends Dialog {
     private Animation enterAnimation;
     private Animation exitAnimation;
     private ViewGroup mRootView;
+    public AppCompatActivity compatActivity;
 
     public CustomDialog(Context context) {
         this(context, -1);
+        compatActivity = (AppCompatActivity) context;
     }
 
     public CustomDialog(Context context, int themeResId) {
@@ -56,12 +60,19 @@ public class CustomDialog extends Dialog {
         exitAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.window_exit);
 
         mRootView = (LinearLayout) findViewById(R.id.ll_rootview);
-//        mRootView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dismiss();
-//            }
-//        });
+        mRootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
+        ivSample.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //do nothing,only take focus
+            }
+        });
     }
 
 
@@ -95,6 +106,9 @@ public class CustomDialog extends Dialog {
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     realDimiss();
+                    if (DialogFlags.isActivityDestroy) {
+                        compatActivity.finish();
+                    }
                 }
 
                 @Override

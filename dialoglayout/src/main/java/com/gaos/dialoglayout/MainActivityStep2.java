@@ -1,23 +1,18 @@
 package com.gaos.dialoglayout;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gaos.dialoglayout.customdialog.CustomDialog;
 import com.vansuita.gaussianblur.GaussianBlur;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivityStep2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_step2);
         TextView tvShow3 = (TextView) findViewById(R.id.tv_show);
-//        final CustomDialog customDialog = new CustomDialog(MainActivity.this);
+        final CustomDialog customDialog = new CustomDialog(MainActivityStep2.this);
         tvShow3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,24 +34,38 @@ public class MainActivity extends AppCompatActivity {
 //                if (bitmap != null) {
 //                    customDialog.setWindowBackground(bitmap);
 //                }
-//
-//                Bitmap screenShot = takeScreenShot();
-//                if (screenShot != null) {
-//                    customDialog.setWindowBackground(screenShot);
-//                }
-//                customDialog.show();
 
-//                ((LinearLayout) customDialog.getRootView()).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                        customDialog.dismiss();
-//                    }
-//                });
+                Bitmap screenShot = takeScreenShot();
+                if (screenShot != null) {
+                    customDialog.setWindowBackground(screenShot);
+                }
+                customDialog.show();
 
-//                customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0xffffffff));
+                ((LinearLayout) customDialog.getRootView()).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                startActivity(new Intent(MainActivity.this, MainActivityStep2.class));
+                        /**
+                         * Activity finish 时会将 dialog一同销毁。
+                         * 不会发生所谓的dialog无attach Activity 而导致的崩溃异常发生。
+                         *
+                         */
+
+                        customDialog.dismiss();
+//                        finish();
+                        DialogFlags.isActivityDestroy = true;
+                    }
+                });
+
+                customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0xffffffff));
+            }
+        });
+
+        final TextView tvDestory = (TextView) findViewById(R.id.tv_destroy);
+        tvDestory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

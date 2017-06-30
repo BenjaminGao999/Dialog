@@ -6,13 +6,22 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
+    <!--remind:
+              1.  android:windowIsFloating = false
+                     会导致在运行Android18 - Android25 的某些机型上，虽然设置了android:windowFullscreen = true ，
+                     但是依然会导致 status bar 未隐藏。-->
     <style name="Theme.AppCompat.Dialog.CustomDialog">
-        <item name="android:windowBackground">@null</item>
-        <item name="android:windowIsFloating">false</item>
+        <!--<item name="android:windowBackground">@null</item>-->
+        <!--<item name="android:windowIsFloating">false</item>-->
         <!--<item name="android:backgroundDimEnabled">false</item>-->
         <item name="android:windowFullscreen">true</item>
         <!--<item name="android:windowNoTitle">true</item>-->
+        <!--<item name="windowNoTitle">true</item>-->
+        <!--<item name="android:windowContentOverlay">@null</item>-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
     </style>
 </resources>

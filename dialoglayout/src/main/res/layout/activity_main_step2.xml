@@ -15,5 +15,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Hello World!\nOpen Step2 " />
+        android:text="Hello World!\ndialog shows" />
+
+    <TextView
+        android:id="@+id/tv_destroy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_show"
+        android:layout_marginTop="10dp"
+        android:text="destroy current activity step2" />
 </RelativeLayout>
